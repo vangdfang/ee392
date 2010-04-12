@@ -71,7 +71,7 @@ Options 1,0,0  // Target 'Target 1'
  LibMods ()
  BankNo=65535
  LX51FL=292
- LX51OVL ()
+ LX51OVL (?PR?PRINTF?PRINTF ! *,\~?PR?_WRITESERIAL?EE392 ! *)
  LX51MSC ()
  LX51DWN ()
  LX51LFI ()
