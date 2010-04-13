@@ -4,9 +4,16 @@
 #include <string.h>
 #include "ee392.h"
 
+#define DEBUG 0
+
 static int float_level = 0;
 static unsigned int ID = 4242;
+/* NOTE: if DEVICE/DEST are identical,
+ * XBee will report an error on startup.
+ * This is OK; it simply won't talk to itself.
+ */
 static unsigned int DEVICE = 1;
+static unsigned int DEST = 1;
 static unsigned int TIMER0_TICK;
 static unsigned int TIMER0_COUNT = 0xFDAB;
 
@@ -101,17 +108,13 @@ void initxbee()
     /* XXX - check for OK */
 
     /* set parameters */
-    sprintf(msg, "ATID%d,CHA,NID%d\r", ID, DEVICE);
+	sprintf(msg, "ATID%d,NID%d\r", ID, DEVICE);
     writexbee(&msg);
     msleep(2000);
 
-	sprintf(msg, "ATNI\r");
-	writexbee(&msg);
-	msleep(2000);
-
-	sprintf(msg, "ATDND1\r");
-	writexbee(&msg);
-	msleep(200);
+   	sprintf(msg, "ATAC,DND%d,CN\r", DEST);
+    writexbee(&msg);
+    msleep(2000);
 
     /* XXX - check for OK */
 
@@ -150,11 +153,12 @@ void readfloat()
     /* P4 is not bit addressable. */
     /* must use bitwise AND here. */
     if((P4 & 0x01) != float_level) {
-        float_level = (P4 & 0);
-        sprintf(msg, "%d\r", float_level);
+        float_level = (P4 & 0x01);
+        sprintf(msg, "D%d,%d\r", DEVICE, float_level);
         writexbee(&msg);
     }
 
+	#if DEBUG
    	if(P4 & 0x01) {
 		sprintf(msg, "ON\r");
 	}
@@ -162,6 +166,8 @@ void readfloat()
 		sprintf(msg, "OFF\r");
 	}
 	writeserial(&msg);
+	#endif
+
 	return;
 }
 
