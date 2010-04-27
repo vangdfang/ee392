@@ -174,17 +174,17 @@ void readfloat()
     if((P4 & 0x01) != float_level) {
         /* float level is different; send update to XBee */
         float_level = (P4 & 0x01);
-        sprintf(msg, "D%d,%d\r", DEVICE, float_level);
+        sprintf(msg, "D%d,%d\r\n", DEVICE, float_level);
         writexbee(&msg);
     }
 
     #if DEBUG
     /* extra debugging output to serial UART */
     if(P4 & 0x01) {
-        sprintf(msg, "ON\r");
+        sprintf(msg, "ON\r\n");
     }
     else {
-        sprintf(msg, "OFF\r");
+        sprintf(msg, "OFF\r\n");
     }
     writeserial(&msg);
     #endif
