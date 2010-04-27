@@ -168,7 +168,7 @@ sbit ET0  = IEN0^1;
 sbit EX0  = IEN0^0;
 
 /*  IEN1   */
-sbit EAD  = IEN1^7; // alternatively "EIEE" 
+sbit EAD  = IEN1^7; // alternatively "EIEE"
 sbit EIEE = IEN1^7;
 sbit EST  = IEN1^6;
 sbit ECCU = IEN1^4;
@@ -177,7 +177,7 @@ sbit EC   = IEN1^2;
 sbit EKBI = IEN1^1;
 sbit EI2C = IEN1^0;
 
-/*  IP0   */ 
+/*  IP0   */
 sbit PWDRT = IP0^6;
 sbit PB0   = IP0^5;
 sbit PS    = IP0^4; // alternatively "PSR"
@@ -188,7 +188,7 @@ sbit PT0   = IP0^1;
 sbit PX0   = IP0^0;
 
 /*  IP1   */
-sbit PAD  = IP1^7; // alternatively "PIEE" 
+sbit PAD  = IP1^7; // alternatively "PIEE"
 sbit PIEE = IP1^7;
 sbit PST  = IP1^6;
 sbit PCCU = IP1^4;
