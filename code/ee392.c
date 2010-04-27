@@ -33,7 +33,12 @@ static void readxbee(void) interrupt 17 using 1
     EA=0;
     if((S1CON & RI_1_MSK)==1) {
         /* received character from XBee */
-        sprintf(buf, "%c", S1BUF);
+        if(S1BUF == '\r') {
+            sprintf(buf, "\r\n");
+        }
+        else {
+            sprintf(buf, "%c", S1BUF);
+        }
         writeserial(&buf);
         S1CON ^= RI_1_MSK;
     }
@@ -125,7 +130,12 @@ void initxbee()
     writexbee(&msg);
     msleep(2000);
 
-    sprintf(msg, "ATAC,DND%d,CN\r", DEST);
+    if(DEVICE==DEST) {
+        sprintf(msg, "ATAC,CN\r");
+    }
+    else {
+        sprintf(msg, "ATAC,DND%d,CN\r", DEST);
+    }
     writexbee(&msg);
     msleep(2000);
 
@@ -174,17 +184,17 @@ void readfloat()
     if((P4 & 0x01) != float_level) {
         /* float level is different; send update to XBee */
         float_level = (P4 & 0x01);
-        sprintf(msg, "D%d,%d\r\n", DEVICE, float_level);
+        sprintf(msg, "D%d,%d\r", DEVICE, float_level);
         writexbee(&msg);
     }
 
     #if DEBUG
     /* extra debugging output to serial UART */
     if(P4 & 0x01) {
-        sprintf(msg, "ON\r\n");
+        sprintf(msg, "ON\r");
     }
     else {
-        sprintf(msg, "OFF\r\n");
+        sprintf(msg, "OFF\r");
     }
     writeserial(&msg);
     #endif

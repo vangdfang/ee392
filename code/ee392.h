@@ -14,8 +14,8 @@
 static int float_level = 0;
 static unsigned int ID = 4242;
 /* NOTE: if DEVICE/DEST are identical,
- * XBee will report an error on startup.
- * This is OK; it simply won't talk to itself.
+ * XBee will not have a destination.
+ * The XBee would report an error if attempted.
  */
 static unsigned int DEVICE = 1;
 static unsigned int DEST = 1;
