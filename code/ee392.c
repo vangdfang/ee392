@@ -1,21 +1,14 @@
+/************************************************************
+ * File:    ee392.c                                         *
+ * Project: Wireless Bridge Monitor                         *
+ * Author:  Doug Kelly                                      *
+ * Group:   Matt Bloom, Steve Jia, Doug Kelly, Liz Stahlman *
+ ************************************************************/
 #include <reg952.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "ee392.h"
-
-#define DEBUG 0
-
-static int float_level = 0;
-static unsigned int ID = 4242;
-/* NOTE: if DEVICE/DEST are identical,
- * XBee will report an error on startup.
- * This is OK; it simply won't talk to itself.
- */
-static unsigned int DEVICE = 1;
-static unsigned int DEST = 1;
-static unsigned int TIMER0_TICK;
-static unsigned int TIMER0_COUNT = 0xFDAB;
 
 /* timer0_isr()
  * Timer 0 ISR; based heavily on APNT_105 from Keil Software:
